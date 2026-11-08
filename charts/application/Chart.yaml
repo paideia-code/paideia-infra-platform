@@ -1,0 +1,5 @@
+apiVersion: v2
+name: application
+description: Despliegue básico de una aplicación HTTP de Paideia
+type: application
+version: 0.1.0
