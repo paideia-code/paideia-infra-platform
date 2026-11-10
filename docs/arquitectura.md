@@ -39,7 +39,11 @@ un módulo por cada recurso AWS: extraeremos unidades con una responsabilidad
 comprensible y usos comprobados. Primero puede existir una composición pequeña;
 no necesitamos generalizar todas las posibilidades antes de desplegar el primer template.
 
-### `paideia-infra-platform`: Kubernetes y automatización común
+El nombre identifica código específico de Terraform, no toda la infraestructura.
+Si elegimos otra herramienta en el futuro, su implementación tendrá un espacio
+propio; cambiar el nombre del repositorio no convierte los módulos entre herramientas.
+
+### `paideia-infra-platform`: plataforma Kubernetes común
 
 ```text
 paideia-infra-platform/
@@ -47,10 +51,6 @@ paideia-infra-platform/
 ├── charts/
 │   ├── application/         # API/web o worker; Service opcional
 │   └── migration/           # Job con Flyway u otra herramienta
-├── .github/workflows/
-│   ├── build-image.yml      # Construcción/publicación reutilizable
-│   ├── ci-java.yml          # Comprobaciones específicas de Java
-│   └── ci-node.yml          # Comprobaciones específicas de Node
 └── docs/                    # Diseño y guías de la plataforma
 ```
 
@@ -60,6 +60,26 @@ obligará a todas las aplicaciones a utilizar todos los recursos.
 
 Observabilidad y External Secrets Operator serán componentes opcionales. Para
 herramientas externas usaremos charts versionados; no copiaremos su implementación.
+
+### `paideia-infra-automations`: automatización reutilizable
+
+```text
+paideia-infra-automations/
+├── .github/workflows/
+│   ├── ci-node.yml          # Validación de aplicaciones Node
+│   ├── ci-java.yml          # Validación de aplicaciones Java
+│   ├── ci-go.yml            # Validación de aplicaciones Go
+│   └── build-image.yml      # Construcción/publicación común de imágenes
+└── scripts/                # Solo auxiliares que realmente necesitemos
+```
+
+Esta estructura es el objetivo, no workflows ya implementados. El repositorio
+reúne procesos reutilizables, incluso para proyectos que no utilizan Kubernetes.
+Los consumidores mantienen workflows pequeños con sus eventos y parámetros.
+`environments` conserva las entradas de promoción y up/down con su política concreta;
+`automations` aporta los procedimientos comunes. Las referencias compartidas se versionan.
+Platform puede tener workflows propios para validar sus charts, llamando a las
+piezas reutilizables de automations, sin duplicarlas.
 
 ### `paideia-infra-environments`: composición concreta
 

@@ -26,7 +26,8 @@ de rollback, no eliminará una imagen solo porque el clúster esté retirado.
 | Repositorio | Al integrar en main |
 | --- | --- |
 | Aplicación | Validar y construir los servicios afectados; promover los configurados en automático |
-| Platform | Validar/publicar nuevas versiones de charts y workflows; los consumidores eligen adoptarlas |
+| Platform | Validar/publicar nuevas versiones de charts; los consumidores eligen adoptarlas |
+| Automations | Validar/publicar versiones de workflows reutilizables; los consumidores eligen adoptarlas |
 | Terraform | Validar módulos y ejemplos; actualizar un módulo no crea recursos por sí mismo |
 | Environments | Validar configuración; Argo CD observa las rutas Kubernetes del ambiente activo |
 
@@ -76,7 +77,7 @@ igualmente sus fuentes observadas.
 ## Reutilización y monorepos
 
 Los repositorios consumidores tendrán un workflow pequeño. El trabajo común vive
-en `paideia-infra-platform/.github/workflows`, con `workflow_call` e inputs como
+en `paideia-infra-automations/.github/workflows`, con `workflow_call` e inputs como
 contexto de construcción, Dockerfile e identidad de imagen. Java y Node pueden
 necesitar comprobaciones diferentes antes de una construcción común.
 [Workflows reutilizables](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows).

@@ -7,6 +7,10 @@ una decisión no significa que su implementación ya exista.
 
 Fecha base: 8 de noviembre de 2026.
 
+Actualización del 9 de noviembre de 2026: se separa la automatización reutilizable
+de platform antes de implementar los primeros workflows. D06 reemplaza la propuesta
+inicial de tres repositorios, que agrupaba automatizaciones y charts en platform.
+
 | ID | Decisión | Razón y consecuencia | Revisar cuando… |
 | --- | --- | --- | --- |
 | D01 | Kubernetes como destino común, local y EKS | Aprovecha imágenes existentes y permite practicar una plataforma reutilizable | Otra carga requiera un servicio distinto |
@@ -14,7 +18,7 @@ Fecha base: 8 de noviembre de 2026.
 | D03 | GitOps con Argo CD dentro de cada clúster | El estado deseado vive en Git; el clúster se reconstruye con bootstrap externo | Haya varios clústeres o una operación permanente |
 | D04 | Terraform administra AWS; Argo CD administra cargas | Cada recurso tiene un propietario y un flujo identificable | Se introduzca un controlador de infraestructura con alcance explícito |
 | D05 | Promoción automática/manual independiente de up/down | Un merge puede preparar un despliegue sin encender EKS | Cambie la política de ambientes |
-| D06 | Tres repositorios de infraestructura con funciones distintas | Módulos AWS, plataforma común y configuraciones concretas tienen ciclos propios | La división produzca duplicación real o gestión innecesaria |
+| D06 | Cuatro repositorios: terraform, platform, automations y environments | Separa módulos AWS, plataforma Kubernetes, automatización reutilizable y composición concreta; las automatizaciones sirven también fuera de Kubernetes | La división produzca duplicación real o gestión innecesaria |
 | D07 | Monorepos y repositorios por servicio admitidos | La aplicación es la unidad desplegable; no se rehace el POC Spring | Equipos, permisos o ciclos justifiquen separar un repositorio |
 | D08 | Workflows y charts reutilizables, con versiones elegidas | Evita copiar pipelines y actualizaciones involuntarias de todos los consumidores | Aparezca una segunda implementación que revele límites del contrato |
 | D09 | Un sandbox compartido, namespaces por proyecto | Reduce el costo del plano de control y simplifica aprendizaje | Se necesite aislamiento fuerte, producción o capacidad diferente |
@@ -25,6 +29,7 @@ Fecha base: 8 de noviembre de 2026.
 | D14 | Primera vuelta con seis templates de Enrollments; un piloto a la vez | Compara Nest, Spring y Go con variantes por capas/hexagonal, en memoria y sin migraciones | La primera reconstrucción esté comprobada y se incorpore persistencia |
 | D15 | GitHub Pages se mantiene | El sitio no necesita EKS | Sus requisitos reales cambien |
 | D16 | Floci y ECS permanecen como laboratorios | Conserva el aprendizaje y evita mezclar estados de emulación con AWS | Se retiren deliberadamente esos laboratorios |
+| D17 | Mantener el nombre paideia-infra-terraform | Contiene módulos específicos de esa herramienta; un nombre genérico no hace portable la implementación | Se adopte realmente otra herramienta de infraestructura |
 
 ## Alcance inicial de las decisiones
 

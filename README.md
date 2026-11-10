@@ -3,7 +3,7 @@
 **Una base común para ejecutar aplicaciones de distintas tecnologías, con
 despliegues controlados y ambientes que podamos retirar y reconstruir.**
 
-Diseño y estado revisados: **8 de noviembre de 2026**. Esta es la entrada actual
+Diseño y estado revisados: **9 de noviembre de 2026**. Esta es la entrada actual
 del plan; el [diseño inicial](docs/diseno-inicial.md) es un antecedente histórico.
 
 ## La idea en un minuto
@@ -31,8 +31,12 @@ flowchart TD
   EKS -. "Aloja Kubernetes remoto" .-> K8s
 ```
 
-El diagrama describe el destino. Kubernetes, Argo CD y los workflows todavía
-están pendientes. Consulta el [estado comprobado](docs/estado-y-recorrido.md).
+El diagrama describe el destino. El piloto Nest ya se ejecuta en Kubernetes local
+con un chart común y Argo CD; los workflows y AWS real siguen pendientes.
+
+Los charts comunes viven aquí. Los workflows reutilizables se implementarán en
+[paideia-infra-automations](../paideia-infra-automations/README.md); los ambientes
+y sus políticas concretas permanecen en `paideia-infra-environments`.
 
 ## Qué decisión controla cada cosa
 
